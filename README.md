@@ -51,13 +51,10 @@ No client secrets in the repository.
 
 ---
 
-### 2. **Display These Spotify Endpoints**
+### 2. **Display This Spotify Endpoint**
 
 #### **Released This Week**  
 `GET /browse/new-releases`
-
-#### **Featured Playlists**  
-`GET /browse/featured-playlists`
 
 Your UI must show:
 
