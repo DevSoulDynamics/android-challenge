@@ -99,6 +99,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.adapter)
 
+    //Coil
+    //--Coil Carga de imágenes
+    implementation(libs.coil.compose)
+    //--Coil Parte de red
+    implementation(libs.coil.network.okhttp)
+
     //Testing libs
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

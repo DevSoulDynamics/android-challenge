@@ -43,7 +43,7 @@ class WelcomeViewModel @Inject constructor(
                 prefsRepository.cleanCodeVerifier()
 
                 Log.i("TOKEN", response.accessToken)
-                prefsRepository.saveToken(response.accessToken)
+                prefsRepository.saveToken("${response.tokenType} ${response.accessToken}")
                 Log.i("REFRESH TOKEN", response.refreshToken ?: "")
                 prefsRepository.saveRefreshToken(response.refreshToken ?: "")
 

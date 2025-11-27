@@ -14,6 +14,7 @@ hilt = "2.57.1"
 hilt-navigation = "1.2.0"
 ksp = "2.1.21-2.0.1"
 retrofit = "3.0.0"
+coil = "3.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,11 @@ hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.re
 #Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-adapter = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+#Coil
+#--Coil Carga de imágenes
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+#--Coil Parte de red
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

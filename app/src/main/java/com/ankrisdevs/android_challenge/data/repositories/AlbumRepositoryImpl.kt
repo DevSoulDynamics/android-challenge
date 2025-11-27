@@ -11,7 +11,7 @@ class AlbumRepositoryImpl @Inject constructor(private val api: SpotifyApiService
     AlbumRepository {
     override suspend fun getNewReleases(accessToken: String): List<AlbumEntity> {
         val response = try {
-            api.getNewReleases("Bearer ${accessToken}").albums.items
+            api.getNewReleases(accessToken).albums.items
         } catch (e: Exception) {
             Log.i("NEW RELEASES ERROR", "$e")
             listOf()
