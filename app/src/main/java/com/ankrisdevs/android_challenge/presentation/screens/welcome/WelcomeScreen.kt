@@ -1,31 +1,27 @@
 package com.ankrisdevs.android_challenge.presentation.screens.welcome
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ankrisdevs.android_challenge.R
+import com.ankrisdevs.android_challenge.presentation.core.components.ButtonDevsoulify
+import com.ankrisdevs.android_challenge.presentation.core.components.ColumnDevsoulify
+import com.ankrisdevs.android_challenge.presentation.core.components.ProgressIndicatorBlockDevsoulify
+import com.ankrisdevs.android_challenge.presentation.core.components.TopAppBarDevsoulify
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(
     modifier: Modifier = Modifier,
@@ -41,48 +37,36 @@ fun WelcomeScreen(
     Scaffold(
         modifier = modifier.fillMaxWidth(),
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.welcome_screen_name))
-                },
-                modifier = Modifier
-            )
+            TopAppBarDevsoulify(title = stringResource(R.string.welcome_screen_name))
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        ColumnDevsoulify(
+            paddingValues
         ) {
             Text(
                 text = if (uiState.isLoading) {
                     stringResource(R.string.welcome_screen_waiting_message)
                 } else {
                     stringResource(R.string.welcome_screen_ready_message)
-                }
+                },
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center
             )
 
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(16.dp)
+                    .height(24.dp)
             )
 
             if (uiState.isLoading) {
-                CircularProgressIndicator()
+                ProgressIndicatorBlockDevsoulify(text = stringResource(R.string.welcome_screen_loading_message))
             } else {
-                Button(
-                    onClick = {
-                        onNavigation()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(55.dp)
-                        .padding(horizontal = 32.dp)
+                ButtonDevsoulify(
+                    text = stringResource(R.string.welcome_screen_navigate)
                 ) {
-                    Text(text = stringResource(R.string.welcome_screen_navigate))
+                    onNavigation()
                 }
             }
         }

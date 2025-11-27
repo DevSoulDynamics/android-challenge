@@ -1,30 +1,26 @@
 package com.ankrisdevs.android_challenge.presentation.screens.login
 
 import android.content.Intent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ankrisdevs.android_challenge.R
+import com.ankrisdevs.android_challenge.presentation.core.components.ButtonDevsoulify
+import com.ankrisdevs.android_challenge.presentation.core.components.ColumnDevsoulify
+import com.ankrisdevs.android_challenge.presentation.core.components.TopAppBarDevsoulify
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
@@ -46,39 +42,38 @@ fun LoginScreen(
     Scaffold(
         modifier = modifier.fillMaxWidth(),
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.login_screen_name))
-                },
-                modifier = Modifier
-            )
+            TopAppBarDevsoulify(title = stringResource(R.string.login_screen_name))
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        ColumnDevsoulify(
+            paddingValues
         ) {
-            Text(text = stringResource(R.string.login_screen_select_authorization))
+            Text(
+                text = stringResource(R.string.login_screen_select_authorization),
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = "Conecta con Spotify para continuar",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
 
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(16.dp)
+                    .height(32.dp)
             )
 
-            Button(
-                onClick = {
-                    loginViewModel.getAuthorization()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 32.dp)
+            ButtonDevsoulify(
+                text = stringResource(R.string.login_screen_navigate)
             ) {
-                Text(text = stringResource(R.string.login_screen_navigate))
+                loginViewModel.getAuthorization()
             }
         }
     }
