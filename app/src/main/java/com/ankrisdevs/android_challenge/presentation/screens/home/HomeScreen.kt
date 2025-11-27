@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    onNavigationBack: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -30,14 +33,14 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         )
         Button(
             onClick = {
-
+                onNavigationBack()
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp)
                 .padding(horizontal = 32.dp)
         ) {
-            Text(text = "Continuar")
+            Text(text = "Volver")
         }
     }
 }

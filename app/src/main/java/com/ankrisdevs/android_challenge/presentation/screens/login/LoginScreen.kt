@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onNavigation: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -30,7 +33,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         )
         Button(
             onClick = {
-
+                onNavigation()
             },
             modifier = Modifier
                 .fillMaxWidth()

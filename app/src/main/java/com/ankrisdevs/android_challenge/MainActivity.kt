@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.ankrisdevs.android_challenge.presentation.screens.login.LoginScreen
+import com.ankrisdevs.android_challenge.presentation.core.navigation.NavigationWrapper
 import com.ankrisdevs.android_challenge.ui.theme.AndroidchallengeTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidchallengeTheme {
-                LoginScreen()
+                NavigationWrapper()
             }
         }
     }
