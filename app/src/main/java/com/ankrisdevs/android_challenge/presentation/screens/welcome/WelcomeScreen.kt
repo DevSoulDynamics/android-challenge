@@ -9,15 +9,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,6 +30,12 @@ fun WelcomeScreen(
     welcomeViewModel: WelcomeViewModel = hiltViewModel(),
     onNavigation: () -> Unit
 ) {
+    val uiState by welcomeViewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        welcomeViewModel.exchangeCodeForToken()
+    }
+
     Scaffold(
         modifier = modifier.fillMaxWidth(),
         topBar = {
@@ -34,10 +43,7 @@ fun WelcomeScreen(
                 title = {
                     Text(text = "Welcome")
                 },
-                modifier = Modifier,
-                colors = TopAppBarDefaults.topAppBarColors(
-
-                )
+                modifier = Modifier
             )
         }
     ) { paddingValues ->
@@ -48,22 +54,34 @@ fun WelcomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "WelcomeScreen")
+            Text(
+                text = if (uiState.isLoading) {
+                    "Recibiendo Autorización, espere un momento"
+                } else {
+                    "¡Perfecto! Continúa para home"
+                }
+            )
+
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(16.dp)
             )
-            Button(
-                onClick = {
-                    onNavigation()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 32.dp)
-            ) {
-                Text(text = "Continuar")
+
+            if (uiState.isLoading) {
+                CircularProgressIndicator()
+            } else {
+                Button(
+                    onClick = {
+                        onNavigation()
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp)
+                        .padding(horizontal = 32.dp)
+                ) {
+                    Text(text = "Continuar")
+                }
             }
         }
     }
