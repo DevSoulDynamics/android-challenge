@@ -1,3 +1,4 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,6 +9,13 @@ plugins {
     alias(libs.plugins.ksp)
     //Dagger Hilt plugin
     alias(libs.plugins.hilt)
+}
+
+val localProperties = Properties().apply {
+    val localFile = rootProject.file("local.properties")
+    if (localFile.exists()) {
+        localFile.inputStream().use { load(it) }
+    }
 }
 
 android {
@@ -22,6 +30,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "SPOTIFY_CLIENT_ID",
+            "\"${localProperties.getProperty("SPOTIFY_CLIENT_ID") ?: ""}\""
+        )
+        buildConfigField(
+            "String",
+            "SPOTIFY_REDIRECT_URI",
+            "\"${localProperties.getProperty("SPOTIFY_REDIRECT_URI") ?: ""}\""
+        )
     }
 
     buildTypes {
@@ -39,9 +58,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -73,6 +94,16 @@ dependencies {
 
     //--KSP
     ksp(libs.hilt.compiler)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.adapter)
+
+    //Coil
+    //--Coil Carga de imágenes
+    implementation(libs.coil.compose)
+    //--Coil Parte de red
+    implementation(libs.coil.network.okhttp)
 
     //Testing libs
     testImplementation(libs.junit)
