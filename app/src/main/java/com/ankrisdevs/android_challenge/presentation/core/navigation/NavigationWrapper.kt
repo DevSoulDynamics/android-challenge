@@ -27,9 +27,7 @@ fun NavigationWrapper(deepLink: Uri?) {
         }
 
         composable<Home> {
-            HomeScreen() {
-                navController.popBackStack()
-            }
+            HomeScreen()
         }
     }
 }
