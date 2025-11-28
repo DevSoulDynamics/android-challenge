@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AlbumsResponse(
-    @SerialName("albums") val albums: AlbumsContainer
+data class AlbumsContainer(
+    @SerialName("items") val items: List<AlbumItemResponse>
 )
